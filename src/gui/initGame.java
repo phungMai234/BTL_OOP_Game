@@ -21,7 +21,7 @@ public class initGame extends JFrame implements KeyListener{
     private int height, width;
 
     public static void main(String[] args){
-        initGame _game = new initGame("C:\\Users\\ADMIN\\Desktop\\BTL_OOP_Game\\level\\level1.txt");
+        initGame _game = new initGame("../BTL_OOP_Game/level/level1.txt");
         System.out.println(_game._array.size());
         _game.setTitle("Test JFrame");
         _game.setSize((int) ((_game.width +0.4)*50), (_game.height+1)*50);

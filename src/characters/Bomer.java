@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Bomer extends Entity{
 
-    private String path = "C:\\Users\\ADMIN\\Desktop\\BTL_OOP_Game\\image\\bomer.png";
+    private String path = "../BTL_OOP_Game/image/bomer.png";
     public Bomer(int x, int y){
         super(x,y);
     }
