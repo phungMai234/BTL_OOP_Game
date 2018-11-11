@@ -10,6 +10,10 @@ public class Tile extends Entity {
         return path;
     }
 
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     @Override
     public void render(String path) {
 
