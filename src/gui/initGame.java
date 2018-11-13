@@ -16,17 +16,18 @@ import src.characters.Wall;
 import javax.swing.*;
 
 public class initGame extends JFrame implements KeyListener{
-    private ArrayList<Entity> _array = new ArrayList<Entity>();
-    private JPanel jPanel;
+    private Entity _array[][] = new Entity[50][50];
+    private JLabel listLabel[][] = new JLabel[50][50];
+    private JPanel jPanel = new JPanel();
     private int height, width;
     private JLabel bomer = new JLabel();
+    private Entity _bomer;
 
     public static void main(String[] args){
         initGame _game = new initGame("../BTL_OOP_Game/level/level1.txt");
-        System.out.println(_game._array.size());
         _game.setTitle("Test JFrame");
-        _game.setSize((int) ((_game.width +0.4)*50), (_game.height+1)*50);
-        _game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Stop/Close program on exit
+        _game.setSize( (int)(_game.width+0.4)*50, (_game.height+1)*50);
+        _game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         _game.setVisible(true);
     }
 
@@ -36,113 +37,116 @@ public class initGame extends JFrame implements KeyListener{
             String infor = br.readLine();
             height = Integer.parseInt(infor.split(" ")[0]);
             width = Integer.parseInt(infor.split(" ")[1]);
+            System.out.println(height + " " + width);
             for(int i = 0; i < height; i++){
                 String oneLine = br.readLine();
                 char[] arr = oneLine.toCharArray();
                 for(int j=0; j< width; j++){
                     if (arr[j] == '#') {
                         Entity _wall = new Wall(j, i);
-                        _array.add(_wall);
+                        _array[i][j] = _wall;
+                        JLabel label = new JLabel();
+                        label.setIcon(new ImageIcon( _wall.getPath()));
+                        label.setBounds(_wall.get_x()*50, _wall.get_y()*50, 50, 50);
+                        jPanel.add(label);
                     }
                     if (arr[j] == ' ') {
                         Entity _tile = new Tile(j, i);
-                        _array.add(_tile);
+                        _array[i][j] = _tile;
+                        JLabel label = new JLabel();
+                        label.setIcon(new ImageIcon( _tile.getPath()));
+                        label.setBounds(_tile.get_x()*50, _tile.get_y()*50, 50, 50);
+                        jPanel.add(label);
                     }
                     if (arr[j] == '*') {
-                        Entity _bomer = new Bomer(j, i);
+                        _bomer = new Bomer(j, i);
                         _bomer.setCanMove(true);
-                        _array.add(_bomer);
+                        _array[i][j] = _bomer;
+                        bomer.setIcon(new ImageIcon( _bomer.getPath()));
+                        bomer.setBounds(_bomer.get_x()*50, _bomer.get_y()*50, 50, 50);
+                        jPanel.add(bomer);
                     }
                 }
             }
+            jPanel.setLayout(null);
+            this.add(jPanel);
+            this.addKeyListener(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        jPanel = this.addEntityToJpanel();
-        add(jPanel);
-        this.addKeyListener(this);
     }
 
-    public JPanel addEntityToJpanel(){
-        JPanel jPanel = new JPanel(null);
-
-        Entity tmp = new Bomer(0,0);
-        for(int i=0; i < this._array.size(); i++){
-            if(_array.get(i) instanceof Bomer){
-                tmp.set_x(_array.get(i).get_x());
-                tmp.set_y(_array.get(i).get_y());
-            }
-            JLabel label1 = new JLabel();
-            jPanel.add(label1);
-            label1.setIcon(new ImageIcon( this._array.get(i).getPath()));
-            label1.setBounds(_array.get(i).get_x()*50, _array.get(i).get_y()*50, 50, 50);
-        }
-//        JLabel label1 = new JLabel();
-//        jPanel.add(label1);
-//        label1.setIcon(new ImageIcon( tmp.getPath()));
-//        System.out.println(tmp.get_x() + " " + tmp.get_y());
-//        label1.setBounds(tmp.get_x()*50, tmp.get_y()*50, 50, 50);
-        jPanel.setLayout(null);
-        jPanel.setSize((int) ((this.width +0.4)*50), (this.height+1)*50);
-        return jPanel;
-    }
 
     public Entity findEnity(){
-        for(int i=0;i<this._array.size(); i++){
-            if(this._array.get(i).isCanMove()){
-                return _array.get(i);
+        for(int i=0;i<_array.length; i++){
+            for(int j=0 ; j<_array[i].length; j++){
+                if(_array[i][j]!=null){
+                    if(_array[i][j] instanceof Bomer){
+                        System.out.println(i + " " + j);
+                        return _array[i][i];
+                    }
+                }
             }
         }
         return null;
     }
     public void turnRight(Entity _tmp){
+        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         Entity cur = new Tile(_tmp.get_x(), _tmp.get_y());
         JLabel jLabel = new JLabel();
         jPanel.add(jLabel);
+        jLabel.setLayout(null);
         jLabel.setIcon(new ImageIcon(cur.getPath()));
         jLabel.setBounds((_tmp.get_x())*50, _tmp.get_y()*50, 50, 50);
-        bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        jPanel.add(bomer, 0);
         _tmp.set_x(_tmp.get_x()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
+        jPanel.add(bomer, 0);
     }
     public void turnLeft(Entity _tmp){
+        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         Entity cur = new Tile(_tmp.get_x(), _tmp.get_y());
         JLabel jLabel = new JLabel();
+        jLabel.setLayout(null);
         jPanel.add(jLabel);
         jLabel.setIcon(new ImageIcon(cur.getPath()));
         jLabel.setBounds((_tmp.get_x())*50, _tmp.get_y()*50, 50, 50);
-        jPanel.add(bomer, 0);
+
         _tmp.set_x(_tmp.get_x()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
+        jPanel.add(bomer, 0);
 
     }
     public void turnUp(Entity _tmp){
+        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         Entity cur = new Tile(_tmp.get_x(), _tmp.get_y());
         JLabel jLabel = new JLabel();
+        jLabel.setLayout(null);
         jPanel.add(jLabel);
         jLabel.setIcon(new ImageIcon(cur.getPath()));
         jLabel.setBounds(_tmp.get_x()*50, (_tmp.get_y())*50, 50, 50);
-        jPanel.add(bomer, 0);
         _tmp.set_y(_tmp.get_y()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
+        jPanel.add(bomer, 0);
     }
     public void turnDown(Entity _tmp){
+        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         Entity cur = new Tile(_tmp.get_x(), _tmp.get_y());
         JLabel jLabel = new JLabel();
+        jLabel.setLayout(null);
         jPanel.add(jLabel);
         jLabel.setIcon(new ImageIcon(cur.getPath()));
         jLabel.setBounds(_tmp.get_x()*50, (_tmp.get_y())*50, 50, 50);
-        jPanel.add(bomer, 0);
+
         _tmp.set_y(_tmp.get_y()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
+        jPanel.add(bomer, 0);
 
     }
-
 
     public void keyTyped(KeyEvent e) {
 
@@ -151,19 +155,19 @@ public class initGame extends JFrame implements KeyListener{
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyChar()){
             case 'a': {
-                turnLeft(findEnity());
+                turnLeft(_bomer);
                 break;
             }
             case 'd': {
-                turnRight(findEnity());
+                turnRight(_bomer);
                 break;
             }
             case 'w': {
-                turnUp(findEnity());
+                turnUp(_bomer);
                 break;
             }
             case 's': {
-                turnDown(findEnity());
+                turnDown(_bomer);
                 break;
             }
         }
