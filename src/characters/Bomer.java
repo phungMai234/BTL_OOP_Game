@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class Bomer extends Entity{
-
+    private boolean canDelete = true;
     private String path = "../BTL_OOP_Game/image/bomer.png";
     public Bomer(int x, int y){
         super(x,y);
@@ -12,11 +12,6 @@ public class Bomer extends Entity{
 
     public String getPath() {
         return path;
-    }
-
-    @Override
-    public void render(String path) {
-
     }
 }
 
