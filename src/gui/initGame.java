@@ -8,10 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import src.characters.Bomer;
-import src.characters.Entity;
-import src.characters.Tile;
-import src.characters.Wall;
+import src.characters.*;
 
 import javax.swing.*;
 
@@ -70,6 +67,20 @@ public class initGame extends JFrame implements KeyListener{
                         jPanel.add(bomer);
                         jPanel.add(label);
                     }
+                    if (arr[j] == '@') {
+                        Entity _brick = new Brick(j, i);
+                        Entity _tile = new Tile(j, i);
+                        JLabel label = new JLabel();
+                        JLabel label1 = new JLabel();
+                        label.setIcon(new ImageIcon( _tile.getPath()));
+                        label.setBounds(_tile.get_x()*50, _tile.get_y()*50, 50, 50);
+                        _array[i][j] = _brick;
+                        System.out.println(_brick.getPath());
+                        label1.setIcon(new ImageIcon( _brick.getPath()));
+                        label1.setBounds(_brick.get_x()*50, _brick.get_y()*50, 50, 50);
+                        jPanel.add(label1);
+                        jPanel.add(label);
+                    }
                 }
             }
             jPanel.setLayout(null);
@@ -96,7 +107,6 @@ public class initGame extends JFrame implements KeyListener{
         return null;
     }
     public void turnRight(Entity _tmp){
-        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_x(_tmp.get_x()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
@@ -104,17 +114,13 @@ public class initGame extends JFrame implements KeyListener{
         jPanel.add(bomer, 0);
     }
     public void turnLeft(Entity _tmp){
-        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
-
         _tmp.set_x(_tmp.get_x()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
-
     }
     public void turnUp(Entity _tmp){
-        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
@@ -122,13 +128,11 @@ public class initGame extends JFrame implements KeyListener{
         jPanel.add(bomer, 0);
     }
     public void turnDown(Entity _tmp){
-        System.out.println(_tmp.get_x() + " " + _tmp.get_y());
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
-
     }
 
     public void keyTyped(KeyEvent e) {
