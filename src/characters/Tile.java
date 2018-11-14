@@ -1,4 +1,4 @@
-package src.characters;
+package characters;
 
 public class Tile extends Entity {
     private boolean canDelete = false;

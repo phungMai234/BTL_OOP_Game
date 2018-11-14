@@ -1,6 +1,6 @@
-package src.gui;
+package  gui;
 
-import src.characters.Entity;
+import  characters.Entity;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

@@ -1,4 +1,4 @@
-package src.characters;
+package  characters;
 
 import javax.swing.*;
 

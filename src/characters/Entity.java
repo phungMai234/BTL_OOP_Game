@@ -1,4 +1,4 @@
-package src.characters;
+package characters;
 
 public abstract class Entity {
     protected int _x, _y;

@@ -1,4 +1,4 @@
-package src.characters;
+package  characters;
 
 public class Bomer extends Entity{
     private boolean canDelete = true;
