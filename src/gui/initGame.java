@@ -20,6 +20,7 @@ public class initGame extends JFrame implements KeyListener{
     private int height, width;
     private JLabel bomer = new JLabel();
     private Entity _bomer;
+    private int bombRate = 0;
 
     public initGame()
     {
@@ -76,7 +77,6 @@ public class initGame extends JFrame implements KeyListener{
                         jPanel.add(creatLabelEntity(_tile));
                     }
                     if (arr[j] == '@') {
-                        /*ghi đè cái gạch lên cỏ*/
                         Entity _brick = new Brick(j, i);
                         Entity _tile = new Tile(j, i);
                         _array[i][j] = _brick;
@@ -110,12 +110,12 @@ public class initGame extends JFrame implements KeyListener{
         return null;
     }
     public void turnRight(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());//mot mik dong nay can het cai co
+        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
 
         _tmp.set_x(_tmp.get_x()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        jPanel.add(bomer, 0); // index = 0 laf j
+        jPanel.add(bomer, 0);
     }
     public void turnLeft(Entity _tmp){
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
@@ -140,12 +140,10 @@ public class initGame extends JFrame implements KeyListener{
     }
     public void getBomb(Entity _tmp)
     {
-        _array[_tmp.get_y()][_tmp.get_x()] = new Bomb(_tmp.get_y(), _tmp.get_x());
-        JLabel jLabel1 = new JLabel();
-        jLabel1.setIcon(new ImageIcon( _array[_tmp.get_y()][_tmp.get_x()].getPath()));
-        jLabel1.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        jPanel.add(jLabel1, 0);
 
+            BombExplode bombExplode= new BombExplode(jPanel, _tmp, _array);
+            bombExplode.start();
+            bombRate++;
 
     }
 
@@ -182,7 +180,9 @@ public class initGame extends JFrame implements KeyListener{
             }
             case KeyEvent.VK_SPACE:
             {
-                getBomb(_bomer);
+
+                if(bombRate==0)
+                    getBomb(_bomer);
                 break;
             }
         }
@@ -208,4 +208,3 @@ public class initGame extends JFrame implements KeyListener{
         return true;
     }
 }
-
