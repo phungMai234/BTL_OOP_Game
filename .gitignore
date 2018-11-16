@@ -2,4 +2,4 @@
 /bin
 /.idea
 *.iml
-/.out
+/out
