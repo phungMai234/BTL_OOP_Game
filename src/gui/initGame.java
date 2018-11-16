@@ -20,7 +20,6 @@ public class initGame extends JFrame implements KeyListener{
     private int height, width;
     private JLabel bomer = new JLabel();
     private Entity _bomer;
-    private int bombRate = 0;
 
     public initGame()
     {
@@ -143,7 +142,6 @@ public class initGame extends JFrame implements KeyListener{
 
             BombExplode bombExplode= new BombExplode(jPanel, _tmp, _array);
             bombExplode.start();
-            bombRate++;
 
     }
 
@@ -181,8 +179,7 @@ public class initGame extends JFrame implements KeyListener{
             case KeyEvent.VK_SPACE:
             {
 
-                if(bombRate==0)
-                    getBomb(_bomer);
+                getBomb(_bomer);
                 break;
             }
         }
