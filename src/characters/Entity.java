@@ -1,18 +1,15 @@
-package src.characters;
+package characters;
 
 public abstract class Entity {
     protected int _x, _y;
     protected boolean canMove = false;
-    public abstract void render(String path);
-
+    protected boolean canDelete;
     public int get_x() {
         return _x;
     }
-
     public int get_y() {
         return _y;
     }
-
     public Entity(int x, int y){
         _x = x;
         _y = y;
