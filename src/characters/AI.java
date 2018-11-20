@@ -59,25 +59,21 @@ public class AI extends Thread{
                 case 1:
                     if(checkMoveBalloon(1, _balloon))
                         moveLeft(_balloon);
-                    //System.out.println(_balloon.get_x() + " " + _balloon.get_y());
                     System.out.println("left");
                     break;
                 case 2:
                     if(checkMoveBalloon(2,_balloon))
                         moveRight(_balloon);
-                    //System.out.println(_balloon.get_x() + " " + _balloon.get_y());
                     System.out.println("right");
                     break;
                 case 3:
                     if(checkMoveBalloon(3, _balloon))
                         moveUp(_balloon);
-                    //System.out.println(_balloon.get_x() + " " + _balloon.get_y());
                     System.out.println("up");
                     break;
                 case 4:
                     if(checkMoveBalloon(4, _balloon))
                         moveDown(_balloon);
-                    //System.out.println(_balloon.get_x() + " " + _balloon.get_y());
                     System.out.println("down");
                     break;
 
