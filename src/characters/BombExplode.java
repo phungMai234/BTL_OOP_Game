@@ -5,13 +5,14 @@ import javax.swing.*;
 public class BombExplode extends Thread {
     private JPanel jPanel;
     public Entity _array[][];
-    private Entity _tmp;
+    private Bomer _tmp;
+    private Bomer _realty_bomer;
 
     public Entity get_tmp() {
         return _tmp;
     }
 
-    public void set_tmp(Entity _tmp) {
+    public void set_tmp(Bomer _tmp) {
         this._tmp = _tmp;
     }
 
@@ -26,10 +27,10 @@ public class BombExplode extends Thread {
     public BombExplode() {
 
     }
-
-    public BombExplode(JPanel jPanel, Entity _tmp, Entity _array[][]) {
+    public BombExplode(JPanel jPanel, Bomer _tmp, Entity _array[][]) {
+        this._realty_bomer = _tmp;
         this.jPanel = jPanel;
-        this._tmp = _tmp;
+        this._tmp = new Bomer(_tmp.get_x(), _tmp.get_y());
         this._array = _array;
     }
 
@@ -37,7 +38,6 @@ public class BombExplode extends Thread {
     public void run() {
         try {
             _array[_tmp.get_y()][_tmp.get_x()] = new Bomb(_tmp.get_y(), _tmp.get_x());
-
             JLabel jLabel_center = new JLabel();
             JLabel jLabel_top = new JLabel();
             JLabel jLabel_down = new JLabel();
@@ -68,6 +68,7 @@ public class BombExplode extends Thread {
 
 
 /* lỗi*/
+            System.out.println(_tmp.get_y() + " " + _tmp.get_x());
             if (_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Tile) {
                 System.out.println("top");
                 jLabel_top.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_top_last2.png"));
@@ -170,7 +171,7 @@ public class BombExplode extends Thread {
             jLabel_left.setIcon(null);
             jLabel_right.setIcon(null);
             jLabel_top.setIcon(null);
-
+            _realty_bomer.set_bom_number(_realty_bomer.get_bom_number()-1);
             System.out.println("done");
         } catch (InterruptedException e) {
             e.printStackTrace();

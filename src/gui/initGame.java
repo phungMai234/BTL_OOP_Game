@@ -19,7 +19,7 @@ public class initGame extends JFrame implements KeyListener{
     private JPanel jPanel = new JPanel();
     private int height, width;
     private JLabel bomer = new JLabel();
-    private Entity _bomer;
+    private Bomer _bomer;
 
     public initGame()
     {
@@ -50,17 +50,13 @@ public class initGame extends JFrame implements KeyListener{
 
                 for(int j=0; j< width; j++){
                     if (arr[j] == '#') {
-
                         Entity _wall = new Wall(j, i);
                         _array[i][j] = _wall;
-
                         jPanel.add(creatLabelEntity(_wall));
                     }
                     if (arr[j] == ' ') {
-
                         Entity _tile = new Tile(j, i);
                         _array[i][j] = _tile;
-
                         jPanel.add(creatLabelEntity(_tile));
                     }
                     if (arr[j] == '*') {
@@ -68,10 +64,8 @@ public class initGame extends JFrame implements KeyListener{
                         _bomer = new Bomer(j, i);
                         _bomer.setCanMove(true);
                         _array[i][j] = _bomer;
-
                         bomer = creatLabelEntity(_bomer);
                         jPanel.add(bomer);
-
                         Entity _tile = new Tile(j, i);
                         jPanel.add(creatLabelEntity(_tile));
                     }
@@ -79,7 +73,6 @@ public class initGame extends JFrame implements KeyListener{
                         Entity _brick = new Brick(j, i);
                         Entity _tile = new Tile(j, i);
                         _array[i][j] = _brick;
-
                         jPanel.add(creatLabelEntity(_brick));
                         jPanel.add(creatLabelEntity(_tile));
                     }
@@ -94,23 +87,8 @@ public class initGame extends JFrame implements KeyListener{
         }
     }
 
-
-    public Entity findEnity(){// k dung
-        for(int i=0;i<_array.length; i++){
-            for(int j=0 ; j<_array[i].length; j++){
-                if(_array[i][j]!=null){
-                    if(_array[i][j] instanceof Bomer){
-                        System.out.println(i + " " + j);
-                        return _array[i][i];
-                    }
-                }
-            }
-        }
-        return null;
-    }
     public void turnRight(Entity _tmp){
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
-
         _tmp.set_x(_tmp.get_x()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
@@ -137,12 +115,10 @@ public class initGame extends JFrame implements KeyListener{
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
     }
-    public void getBomb(Entity _tmp)
+    public void getBomb(Bomer _tmp)
     {
-
             BombExplode bombExplode= new BombExplode(jPanel, _tmp, _array);
             bombExplode.start();
-
     }
 
     public void keyTyped(KeyEvent e) {
@@ -178,9 +154,14 @@ public class initGame extends JFrame implements KeyListener{
             }
             case KeyEvent.VK_SPACE:
             {
-
-                getBomb(_bomer);
-                break;
+                if(_bomer.get_limit_bom()==_bomer.get_bom_number()){
+                    break;
+                }
+                else{
+                    _bomer.set_bom_number(_bomer.get_bom_number()+1);
+                    getBomb(_bomer);
+                    break;
+                }
             }
         }
     }
