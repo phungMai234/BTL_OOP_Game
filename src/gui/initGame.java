@@ -1,12 +1,11 @@
 package gui;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 import characters.Entity;
 import characters.Wall;
@@ -20,6 +19,7 @@ public class initGame extends JFrame implements KeyListener{
     private int height, width;
     private JLabel bomer = new JLabel();
     private Bomer _bomer;
+
 
     public initGame()
     {
@@ -79,6 +79,7 @@ public class initGame extends JFrame implements KeyListener{
                     }
                 }
             }
+
             jPanel.setLayout(null);
             this.add(jPanel);
             this.addKeyListener(this);
@@ -155,6 +156,7 @@ public class initGame extends JFrame implements KeyListener{
             }
             case KeyEvent.VK_SPACE:
             {
+                System.out.println(_bomer.get_bom_number());
                 if(_bomer.get_limit_bom()==_bomer.get_bom_number()){
                     break;
                 }
