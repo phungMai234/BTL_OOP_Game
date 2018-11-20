@@ -57,6 +57,7 @@ public class initGame extends JFrame implements KeyListener{
                 for(int j=0; j< width; j++){
                     if (arr[j] == '#') {
                         Entity _wall = new Wall(j, i);
+                        _wall.setCanDelete(false);
                         _array[i][j] = _wall;
                         jPanel.add(creatLabelEntity(_wall));
                     }

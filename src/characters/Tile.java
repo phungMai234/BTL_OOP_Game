@@ -1,7 +1,7 @@
 package characters;
 
 public class Tile extends Entity {
-    private boolean canDelete = false;
+    private boolean canDelete = true;
     private String path = "../BTL_OOP_Game/image/grass.png";
     public Tile(int x, int y){
         super(x,y);
@@ -12,4 +12,5 @@ public class Tile extends Entity {
     public void setPath(String path) {
         this.path = path;
     }
+
 }
