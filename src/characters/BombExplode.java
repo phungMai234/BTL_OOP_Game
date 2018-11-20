@@ -27,6 +27,7 @@ public class BombExplode extends Thread {
     public BombExplode() {
 
     }
+
     public BombExplode(JPanel jPanel, Bomer _tmp, Entity _array[][]) {
         this._realty_bomer = _tmp;
         this.jPanel = jPanel;
@@ -82,7 +83,7 @@ public class BombExplode extends Thread {
 
             System.out.println(_array[_tmp.get_y()][_tmp.get_x() - 1].isCanDelete());
             if (_array[_tmp.get_y()][_tmp.get_x() - 1].isCanDelete()) {
-                _array[_tmp.get_y()][_tmp.get_x() - 1] = new Tile(_tmp.get_x() - 1,_tmp.get_y() );
+                _array[_tmp.get_y()][_tmp.get_x() - 1] = new Tile(_tmp.get_x() - 1, _tmp.get_y());
                 System.out.println("left");
                 jLabel_left.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_left_last2.png"));
 
@@ -101,39 +102,11 @@ public class BombExplode extends Thread {
             jLabel_left.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() - 1].getPath()));
             jLabel_right.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() + 1].getPath()));
             jLabel_top.setIcon(new ImageIcon(_array[_tmp.get_y() - 1][_tmp.get_x()].getPath()));
-            _realty_bomer.set_bom_number(_realty_bomer.get_bom_number()-1);
+            _realty_bomer.set_bom_number(_realty_bomer.get_bom_number() - 1);
             System.out.println("done");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-   /* public void checkDirectionBombExplode(Entity _tmp) {
-
-        if (this._array[_tmp.get_y()][_tmp.get_x() - 1] instanceof Tile) {
-            JLabel jLabel_center = new JLabel();
-            jLabel_center.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_top_last2.png"));
-            jLabel_center.setBounds(_tmp.get_x() * 50, (_tmp.get_y() - 1) * 50, 50, 50);
-            jPanel.add(jLabel_center);
-        }
-        if (this._array[_tmp.get_y()][_tmp.get_x() + 1] instanceof Tile) {
-            JLabel jLabel_down = new JLabel();
-            jLabel_down.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_down_last2.png"));
-            jLabel_down.setBounds(_tmp.get_x() * 50, (_tmp.get_y() + 1) * 50, 50, 50);
-            jPanel.add(jLabel_down);
-        }
-        if (this._array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Tile) {
-            JLabel jLabel_left = new JLabel();
-            jLabel_left.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_left_last2.png.png"));
-            jLabel_left.setBounds((_tmp.get_x() - 1) * 50, _tmp.get_y() * 50, 50, 50);
-            jPanel.add(jLabel_left);
-        }
-        if (this._array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Tile) {
-            JLabel jLabel_right = new JLabel();
-            jLabel_right.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_right_last2.png.png"));
-            jLabel_right.setBounds((_tmp.get_x() + 1) * 50, _tmp.get_y() * 50, 50, 50);
-            jPanel.add(jLabel_right);
-        }
-
-    }*/
 }

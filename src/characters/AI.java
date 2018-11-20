@@ -8,6 +8,7 @@ public class AI {
     public Entity _array[][];
     private JLabel jballoon;
     private Balloon _balloon;
+    //private Balloon realBalloon;
 
     public AI(JPanel jPanel, Balloon _balloon, JLabel jballoon, Entity _array[][])
     {

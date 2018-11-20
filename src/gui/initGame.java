@@ -96,13 +96,15 @@ public class initGame extends JFrame implements KeyListener{
                         jPanel.add(creatLabelEntity(_tile));
 
 
+
                     }
                 }
             }
             jPanel.setLayout(null);
             this.add(jPanel);
             this.addKeyListener(this);
-
+            AI ai = new AI(jPanel, _balloon, jballoon, _array);
+            ai.moveBallom();
 
         } catch (IOException e) {
             e.printStackTrace();
