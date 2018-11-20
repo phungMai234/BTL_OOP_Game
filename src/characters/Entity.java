@@ -13,6 +13,7 @@ public abstract class Entity {
     public Entity(int x, int y){
         _x = x;
         _y = y;
+        canDelete = true;
     }
 
     public void set_x(int _x) {
@@ -33,4 +34,11 @@ public abstract class Entity {
 
     public abstract String getPath();
 
+    public boolean isCanDelete() {
+        return canDelete;
+    }
+
+    public void setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
+    }
 }

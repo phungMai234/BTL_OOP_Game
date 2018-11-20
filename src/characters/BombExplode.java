@@ -46,8 +46,6 @@ public class BombExplode extends Thread {
 
             jLabel_center.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x()].getPath()));
             jLabel_center.setBounds(_tmp.get_x() * 50, _tmp.get_y() * 50, 50, 50);
-
-
             jPanel.add(jLabel_center, 0);
 
             jLabel_top.setBounds(_tmp.get_x() * 50, (_tmp.get_y() - 1) * 50, 50, 50);
@@ -64,113 +62,45 @@ public class BombExplode extends Thread {
 
             Thread.sleep(2000);
 
-            jLabel_center.setIcon(new ImageIcon("../BTL_OOP_Game/image/bomb_exploded2.png"));
 
-
-/* lỗi*/
             System.out.println(_tmp.get_y() + " " + _tmp.get_x());
-            if (_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Tile) {
+
+            System.out.println(_array[_tmp.get_y() - 1][_tmp.get_x()].isCanDelete());
+            if (_array[_tmp.get_y() - 1][_tmp.get_x()].isCanDelete()) {
+                _array[_tmp.get_y() - 1][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y() - 1);
                 System.out.println("top");
                 jLabel_top.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_top_last2.png"));
 
             }
-            else if (_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Bomer)
-            {
-                System.out.println("bomber top");
-            }
-            else if (_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Brick)
-            {
-                System.out.println("brick top");
-            }
-            else if (_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Wall)
-            {
-                System.out.println("wall top");
-            }
-            else if (_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Bomb)
-            {
-                System.out.println("bomb top");
-            }
 
-
-
-            if (_array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Tile) {
+            System.out.println(_array[_tmp.get_y() + 1][_tmp.get_x()].isCanDelete());
+            if (_array[_tmp.get_y() + 1][_tmp.get_x()].isCanDelete()) {
+                _array[_tmp.get_y() + 1][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y() + 1);
                 System.out.println("down");
                 jLabel_down.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_down_last2.png"));
-
-            }
-            else if (_array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Bomer)
-            {
-                System.out.println("bomber down");
-            }
-            else if (_array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Brick)
-            {
-                System.out.println("brick down");
-            }
-            else if (_array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Wall)
-            {
-                System.out.println("wall down");
-            }
-            else if (_array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Bomb)
-            {
-                System.out.println("bomb down");
             }
 
-
-
-            if (_array[_tmp.get_y()][_tmp.get_x() - 1] instanceof Tile) {
-
+            System.out.println(_array[_tmp.get_y()][_tmp.get_x() - 1].isCanDelete());
+            if (_array[_tmp.get_y()][_tmp.get_x() - 1].isCanDelete()) {
+                _array[_tmp.get_y()][_tmp.get_x() - 1] = new Tile(_tmp.get_x() - 1,_tmp.get_y() );
                 System.out.println("left");
                 jLabel_left.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_left_last2.png"));
 
             }
-            else if (_array[_tmp.get_y() ][_tmp.get_x() -1 ] instanceof Bomer)
-            {
-                System.out.println("bomber left");
-            }
-            else if (_array[_tmp.get_y()][_tmp.get_x() - 1] instanceof Brick)
-            {
-                System.out.println("brick left");
-            }
-            else if (_array[_tmp.get_y()][_tmp.get_x() - 1] instanceof Wall)
-            {
-                System.out.println("wall left");
-            }
-            else if (_array[_tmp.get_y()][_tmp.get_x() - 1] instanceof Bomb)
-            {
-                System.out.println("bomb left");
-            }
 
-
-
-
-            if (_array[_tmp.get_y()][_tmp.get_x() + 1] instanceof Tile) {
+            System.out.println(_array[_tmp.get_y()][_tmp.get_x() + 1].isCanDelete());
+            if (_array[_tmp.get_y()][_tmp.get_x() + 1].isCanDelete()) {
+                _array[_tmp.get_y()][_tmp.get_x() + 1] = new Tile(_tmp.get_x() + 1, _tmp.get_y());
                 System.out.println("right");
                 jLabel_right.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_right_last2.png"));
-
             }
-            else if (_array[_tmp.get_y() ][_tmp.get_x() +1 ] instanceof Bomer)
-            {
-                System.out.println("bomber right");
-            }
-            else if (_array[_tmp.get_y()][_tmp.get_x() + 1] instanceof Brick)
-            {
-                System.out.println("brick right");
-            }
-            else if (_array[_tmp.get_y()][_tmp.get_x() +1] instanceof Wall)
-            {
-                System.out.println("wall right");
-            }
-            else if (_array[_tmp.get_y()][_tmp.get_x() + 1] instanceof Bomb)
-            {
-                System.out.println("bomb right");
-            }
-            Thread.sleep(1000);
-
-            jLabel_center.setIcon(null);
-            jLabel_down.setIcon(null);
-            jLabel_left.setIcon(null);
-            jLabel_right.setIcon(null);
-            jLabel_top.setIcon(null);
+            jLabel_center.setIcon(new ImageIcon("../BTL_OOP_Game/image/bomb_exploded2.png"));
+            Thread.sleep(400);
+            jLabel_center.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x()].getPath()));
+            jLabel_down.setIcon(new ImageIcon(_array[_tmp.get_y() + 1][_tmp.get_x()].getPath()));
+            jLabel_left.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() - 1].getPath()));
+            jLabel_right.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() + 1].getPath()));
+            jLabel_top.setIcon(new ImageIcon(_array[_tmp.get_y() - 1][_tmp.get_x()].getPath()));
             _realty_bomer.set_bom_number(_realty_bomer.get_bom_number()-1);
             System.out.println("done");
         } catch (InterruptedException e) {
