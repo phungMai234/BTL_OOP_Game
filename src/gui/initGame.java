@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import characters.Entity;
 import characters.Wall;
@@ -21,6 +22,9 @@ public class initGame extends JFrame implements KeyListener{
     private JLabel bomer = new JLabel();
     private Bomer _bomer;
 
+    private JLabel jballoon = new JLabel();
+    private Balloon _balloon;
+
     public initGame()
     {
         initGame _game = new initGame("../BTL_OOP_Game/level/level1.txt");
@@ -28,6 +32,8 @@ public class initGame extends JFrame implements KeyListener{
         _game.setSize( (int)((_game.width+0.4)*50), (_game.height+1)*50);
         _game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         _game.setVisible(true);
+
+
     }
 
     public JLabel creatLabelEntity(Entity _tmp)
@@ -76,11 +82,26 @@ public class initGame extends JFrame implements KeyListener{
                         jPanel.add(creatLabelEntity(_brick));
                         jPanel.add(creatLabelEntity(_tile));
                     }
+                    if(arr[j] == '1')
+                    {
+                        _balloon = new Balloon(j, i);
+                        _balloon.setCanMove(true);
+                        _array[i][j] = _balloon;
+                        jballoon = creatLabelEntity(_balloon);
+                        jPanel.add(jballoon);
+
+                        //balloonList.add(_balloon);
+                        Entity _tile = new Tile(j, i);
+                        jPanel.add(creatLabelEntity(_tile));
+
+
+                    }
                 }
             }
             jPanel.setLayout(null);
             this.add(jPanel);
             this.addKeyListener(this);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -185,4 +206,5 @@ public class initGame extends JFrame implements KeyListener{
         }
         return true;
     }
+
 }

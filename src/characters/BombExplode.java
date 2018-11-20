@@ -178,7 +178,7 @@ public class BombExplode extends Thread {
         }
     }
 
-    public void checkDirectionBombExplode(Entity _tmp) {
+   /* public void checkDirectionBombExplode(Entity _tmp) {
 
         if (this._array[_tmp.get_y()][_tmp.get_x() - 1] instanceof Tile) {
             JLabel jLabel_center = new JLabel();
@@ -205,5 +205,5 @@ public class BombExplode extends Thread {
             jPanel.add(jLabel_right);
         }
 
-    }
+    }*/
 }
