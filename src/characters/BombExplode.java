@@ -77,7 +77,8 @@ public class BombExplode extends Thread {
             jLabel_left.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() - 1].getPath()));
             jLabel_right.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() + 1].getPath()));
             jLabel_top.setIcon(new ImageIcon(_array[_tmp.get_y() - 1][_tmp.get_x()].getPath()));
-            _realty_bomer.set_bom_number(_realty_bomer.get_bom_number()-1);
+            _realty_bomer.set_bom_number(_realty_bomer.get_bom_number() - 1);
+            System.out.println("done");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

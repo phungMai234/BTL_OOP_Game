@@ -8,7 +8,8 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class ListenEvent implements KeyListener  {
+public class ListenEvent implements KeyListener
+{
     public void keyTyped(KeyEvent e) {
 
     }

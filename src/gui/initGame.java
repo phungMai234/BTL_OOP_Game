@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 import characters.Entity;
 import characters.Wall;
 import characters.*;
@@ -19,7 +18,8 @@ public class initGame extends JFrame implements KeyListener{
     private int height, width;
     private JLabel bomer = new JLabel();
     private Bomer _bomer;
-
+    private JLabel jballoon = new JLabel();
+    private Balloon _balloon;
 
     public initGame()
     {
@@ -28,6 +28,8 @@ public class initGame extends JFrame implements KeyListener{
         _game.setSize( (int)((_game.width+0.4)*50), (_game.height+1)*50);
         _game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         _game.setVisible(true);
+
+
     }
 
     public JLabel creatLabelEntity(Entity _tmp)
@@ -75,7 +77,22 @@ public class initGame extends JFrame implements KeyListener{
                         Entity _tile = new Tile(j, i);
                         _array[i][j] = _brick;
                         jPanel.add(creatLabelEntity(_brick));
+                        //jPanel.add(creatLabelEntity(_tile));
+                    }
+                    if(arr[j] == '1')
+                    {
+                        _balloon = new Balloon(j, i);
+                        _balloon.setCanMove(true);
+                        _array[i][j] = _balloon;
+                        jballoon = creatLabelEntity(_balloon);
+                        jPanel.add(jballoon);
+
+                        //balloonList.add(_balloon);
+                        Entity _tile = new Tile(j, i);
                         jPanel.add(creatLabelEntity(_tile));
+
+
+
                     }
                 }
             }
@@ -83,6 +100,8 @@ public class initGame extends JFrame implements KeyListener{
             jPanel.setLayout(null);
             this.add(jPanel);
             this.addKeyListener(this);
+//            AI ai = new AI(jPanel, _balloon, jballoon, _array);
+//            ai.moveBallom();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,6 +119,7 @@ public class initGame extends JFrame implements KeyListener{
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_x(_tmp.get_x()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
+
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
     }
@@ -188,4 +208,5 @@ public class initGame extends JFrame implements KeyListener{
         }
         return true;
     }
+
 }
