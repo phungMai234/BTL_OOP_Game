@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import characters.Entity;
@@ -21,9 +22,11 @@ public class initGame extends JFrame implements KeyListener{
     private int height, width;
     private JLabel bomer = new JLabel();
     private Bomer _bomer;
+    private List<Balloon> balloonList = new ArrayList<Balloon>();
+    private List<JLabel> jballoonList = new ArrayList<JLabel>();
 
     private JLabel jballoon = new JLabel();
-    private Balloon _balloon;
+    //private Balloon _balloon;
 
     public initGame()
     {
@@ -85,26 +88,33 @@ public class initGame extends JFrame implements KeyListener{
                     }
                     if(arr[j] == '1')
                     {
+                        JLabel jballoon;
+                        Balloon _balloon;
+
                         _balloon = new Balloon(j, i);
                         _balloon.setCanMove(true);
                         _array[i][j] = _balloon;
                         jballoon = creatLabelEntity(_balloon);
                         jPanel.add(jballoon);
 
-                        //balloonList.add(_balloon);
+                        balloonList.add(_balloon);
+                        jballoonList.add(jballoon);
+
                         Entity _tile = new Tile(j, i);
                         jPanel.add(creatLabelEntity(_tile));
-
-
-
                     }
                 }
             }
             jPanel.setLayout(null);
             this.add(jPanel);
             this.addKeyListener(this);
-            AI ai = new AI(jPanel, _balloon, jballoon, _array);
-            ai.moveBallom();
+
+            int i = 0;
+            for(i = 0; i < balloonList.size(); i++)
+            {
+                AI ai = new AI(jPanel,balloonList.get(i), jballoonList.get(i),_array);
+                ai.start();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,6 +123,7 @@ public class initGame extends JFrame implements KeyListener{
 
     public void turnRight(Entity _tmp){
         _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
+
         _tmp.set_x(_tmp.get_x()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
