@@ -50,10 +50,8 @@ public class initGame extends JFrame implements KeyListener{
             width = Integer.parseInt(infor.split(" ")[1]);
             System.out.println(height + " " + width);
             for(int i = 0; i < height; i++){
-
                 String oneLine = br.readLine();
                 char[] arr = oneLine.toCharArray();
-
                 for(int j=0; j< width; j++){
                     if (arr[j] == '#') {
                         Entity _wall = new Wall(j, i);
@@ -67,21 +65,25 @@ public class initGame extends JFrame implements KeyListener{
                         jPanel.add(creatLabelEntity(_tile));
                     }
                     if (arr[j] == '*') {
-
                         _bomer = new Bomer(j, i);
                         _bomer.setCanMove(true);
-                        _array[i][j] = _bomer;
+                        _array[i][j] = new Tile(j, i);
                         bomer = creatLabelEntity(_bomer);
-                        jPanel.add(bomer);
-                        Entity _tile = new Tile(j, i);
-                        jPanel.add(creatLabelEntity(_tile));
+                        jPanel.add(creatLabelEntity(_array[i][j]), 0);
+                        jPanel.add(bomer, 0);
                     }
                     if (arr[j] == '@') {
                         Entity _brick = new Brick(j, i);
-                        Entity _tile = new Tile(j, i);
                         _array[i][j] = _brick;
                         jPanel.add(creatLabelEntity(_brick));
-                        //jPanel.add(creatLabelEntity(_tile));
+                    }
+                    if(arr[j] == '!'){
+                        Entity _brick = new Brick(j, i);
+                        _array[i][j] = _brick;
+                        ((Brick) _array[i][j]).setHasItem(true);
+                        ((Brick) _array[i][j]).setPathItem("../BTL_OOP_Game/image/item1.png");
+                        ((Brick) _array[i][j]).setTypeItem("LIMIT_BOM");
+                        jPanel.add(creatLabelEntity(_brick));
                     }
                     if(arr[j] == '1')
                     {
@@ -92,13 +94,11 @@ public class initGame extends JFrame implements KeyListener{
                         _balloon.setCanMove(true);
                         _array[i][j] = _balloon;
                         jballoon = creatLabelEntity(_balloon);
-                        jPanel.add(jballoon);
-
                         balloonList.add(_balloon);
                         jballoonList.add(jballoon);
-
                         Entity _tile = new Tile(j, i);
-                        jPanel.add(creatLabelEntity(_tile));
+                        jPanel.add(creatLabelEntity(_tile), 0);
+                        jPanel.add(jballoon, 0);
                     }
                 }
             }
@@ -118,15 +118,12 @@ public class initGame extends JFrame implements KeyListener{
     }
 
     public void turnRight(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
-
         _tmp.set_x(_tmp.get_x()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
     }
     public void turnLeft(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_x(_tmp.get_x()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
 
@@ -134,14 +131,12 @@ public class initGame extends JFrame implements KeyListener{
         jPanel.add(bomer, 0);
     }
     public void turnUp(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
     }
     public void turnDown(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
@@ -158,7 +153,6 @@ public class initGame extends JFrame implements KeyListener{
     }
 
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
         switch (e.getKeyChar()){
             case 'a': {
                 if(checkMove('a', _bomer)){
@@ -186,11 +180,15 @@ public class initGame extends JFrame implements KeyListener{
             }
             case KeyEvent.VK_SPACE:
             {
-                System.out.println(_bomer.get_bom_number());
                 if(_bomer.get_limit_bom()==_bomer.get_bom_number()){
                     break;
                 }
                 else{
+                    _array[_bomer.get_y()][_bomer.get_x()] = new Bomb(_bomer.get_x(), _bomer.get_y());
+                    System.out.println(_bomer.get_y() + " " + _bomer.get_x());
+                    if(_array[_bomer.get_y()][_bomer.get_x()] instanceof Bomb){
+                        System.out.println("ok");
+                    }
                     _bomer.set_bom_number(_bomer.get_bom_number()+1);
                     getBomb(_bomer);
                     break;
@@ -204,16 +202,19 @@ public class initGame extends JFrame implements KeyListener{
     }
 
     private boolean checkMove(char tmp, Entity _tmp){
-        if(tmp == 'a' && !(this._array[_tmp.get_y()][_tmp.get_x()-1] instanceof Tile)){
+        if(_array[_tmp.get_y()][_tmp.get_x()-1] instanceof Bomb){
+            System.out.println("ok");
+        }
+        if(tmp == 'a' && !(_array[_tmp.get_y()][_tmp.get_x()-1] instanceof Tile)){
             return false;
         }
-        if(tmp == 's' && !(this._array[_tmp.get_y()+1][_tmp.get_x()] instanceof Tile)){
+        if(tmp == 's' && !(_array[_tmp.get_y()+1][_tmp.get_x()] instanceof Tile)){
             return false;
         }
-        if(tmp == 'd' && !(this._array[_tmp.get_y()][_tmp.get_x()+1] instanceof Tile)){
+        if(tmp == 'd' && !(_array[_tmp.get_y()][_tmp.get_x()+1] instanceof Tile)){
             return false;
         }
-        if(tmp == 'w' && !(this._array[_tmp.get_y()-1][_tmp.get_x()] instanceof Tile)){
+        if(tmp == 'w' && !(_array[_tmp.get_y()-1][_tmp.get_x()] instanceof Tile)){
             return false;
         }
         return true;

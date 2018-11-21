@@ -54,28 +54,23 @@ public class AI extends Thread{
         while (true) {
 
             direction = random.nextInt(4) + 1;
-            System.out.println(direction);
             switch (direction)
             {
                 case 1:
                     if(checkMoveBalloon(1, _balloon))
                         moveLeft(_balloon);
-                    System.out.println("left");
                     break;
                 case 2:
                     if(checkMoveBalloon(2,_balloon))
                         moveRight(_balloon);
-                    System.out.println("right");
                     break;
                 case 3:
                     if(checkMoveBalloon(3, _balloon))
                         moveUp(_balloon);
-                    System.out.println("up");
                     break;
                 case 4:
                     if(checkMoveBalloon(4, _balloon))
                         moveDown(_balloon);
-                    System.out.println("down");
                     break;
 
             }
@@ -93,7 +88,6 @@ public class AI extends Thread{
         _tmp.set_y(_tmp.get_y()-1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
     }
     public void moveDown(Balloon _tmp)
@@ -102,7 +96,6 @@ public class AI extends Thread{
         _tmp.set_y(_tmp.get_y()+1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
 
     }
@@ -112,7 +105,6 @@ public class AI extends Thread{
         _tmp.set_x(_tmp.get_x()-1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
     }
     public void moveRight(Balloon _tmp)
@@ -121,7 +113,6 @@ public class AI extends Thread{
         _tmp.set_x(_tmp.get_x()+1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
     }
     public boolean checkMoveBalloon(int direction, Balloon _tmp){

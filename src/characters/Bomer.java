@@ -8,7 +8,6 @@ public class Bomer extends Entity{
     public Bomer(int x, int y){
         super(x,y);
     }
-
     public String getPath() {
         return path;
     }

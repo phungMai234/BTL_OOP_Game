@@ -1,9 +1,9 @@
 package characters;
 
 public abstract class Entity {
-    protected int _x, _y;
-    protected boolean canMove = false;
-    protected boolean canDelete;
+    private int _x, _y;
+    private boolean canMove = false;
+    private boolean canDelete;
     public int get_x() {
         return _x;
     }
