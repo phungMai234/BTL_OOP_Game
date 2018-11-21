@@ -57,38 +57,58 @@ public class AI extends Thread{
             switch (direction)
             {
                 case 1:
-                    if(checkMoveBalloon(1, _balloon))
+                    if(checkMoveBalloon(1, _balloon)) {
                         moveLeft(_balloon);
+                        try {
+                            Thread.sleep(700);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     System.out.println("left");
                     break;
                 case 2:
-                    if(checkMoveBalloon(2,_balloon))
+                    if(checkMoveBalloon(2,_balloon)) {
                         moveRight(_balloon);
+                        try {
+                            Thread.sleep(700);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     System.out.println("right");
                     break;
                 case 3:
-                    if(checkMoveBalloon(3, _balloon))
+                    if(checkMoveBalloon(3, _balloon)) {
                         moveUp(_balloon);
+                        try {
+                            Thread.sleep(700);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     System.out.println("up");
                     break;
                 case 4:
-                    if(checkMoveBalloon(4, _balloon))
+                    if(checkMoveBalloon(4, _balloon)) {
                         moveDown(_balloon);
+                        try {
+                            Thread.sleep(700);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     System.out.println("down");
                     break;
 
             }
 
-            try {
-                Thread.sleep(700);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
     public void moveUp(Balloon _tmp)
     {
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
+        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         _tmp.set_y(_tmp.get_y()-1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
@@ -97,7 +117,7 @@ public class AI extends Thread{
     }
     public void moveDown(Balloon _tmp)
     {
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
         _tmp.set_y(_tmp.get_y()+1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
@@ -107,7 +127,7 @@ public class AI extends Thread{
     }
     public void moveLeft(Balloon _tmp)
     {
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
         _tmp.set_x(_tmp.get_x()-1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
@@ -116,7 +136,7 @@ public class AI extends Thread{
     }
     public void moveRight(Balloon _tmp)
     {
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
         _tmp.set_x(_tmp.get_x()+1);
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);

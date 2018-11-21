@@ -25,8 +25,6 @@ public class initGame extends JFrame implements KeyListener{
     private List<Balloon> balloonList = new ArrayList<Balloon>();
     private List<JLabel> jballoonList = new ArrayList<JLabel>();
 
-    private JLabel jballoon = new JLabel();
-    //private Balloon _balloon;
 
     public initGame()
     {
@@ -34,6 +32,7 @@ public class initGame extends JFrame implements KeyListener{
         _game.setTitle("Test JFrame");
         _game.setSize( (int)((_game.width+0.4)*50), (_game.height+1)*50);
         _game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        _game.setResizable(false);
         _game.setVisible(true);
 
 
@@ -88,7 +87,7 @@ public class initGame extends JFrame implements KeyListener{
                     }
                     if(arr[j] == '1')
                     {
-                        JLabel jballoon;
+                        JLabel jballoon = new JLabel();
                         Balloon _balloon;
 
                         _balloon = new Balloon(j, i);
@@ -102,6 +101,7 @@ public class initGame extends JFrame implements KeyListener{
 
                         Entity _tile = new Tile(j, i);
                         jPanel.add(creatLabelEntity(_tile));
+
                     }
                 }
             }
@@ -122,7 +122,7 @@ public class initGame extends JFrame implements KeyListener{
     }
 
     public void turnRight(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
 
         _tmp.set_x(_tmp.get_x()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
@@ -130,21 +130,21 @@ public class initGame extends JFrame implements KeyListener{
         jPanel.add(bomer, 0);
     }
     public void turnLeft(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_x(_tmp.get_x()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
     }
     public void turnUp(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()-1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
         jPanel.add(bomer, 0);
     }
     public void turnDown(Entity _tmp){
-        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
+        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()+1);
         bomer.setIcon(new ImageIcon( _tmp.getPath()));
         bomer.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
