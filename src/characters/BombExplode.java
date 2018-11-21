@@ -50,7 +50,6 @@ public class BombExplode extends Thread {
             if (_array[_tmp.get_y() - 1][_tmp.get_x()].isCanDelete()) {
                 _array[_tmp.get_y() - 1][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y() - 1);
                 jLabel_top.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_top_last2.png"));
-
             }
 
             System.out.println(_array[_tmp.get_y() + 1][_tmp.get_x()].isCanDelete());
@@ -71,12 +70,15 @@ public class BombExplode extends Thread {
                 jLabel_right.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_right_last2.png"));
             }
             jLabel_center.setIcon(new ImageIcon("../BTL_OOP_Game/image/bomb_exploded2.png"));
+
             Thread.sleep(400);
+
             jLabel_center.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x()].getPath()));
             jLabel_down.setIcon(new ImageIcon(_array[_tmp.get_y() + 1][_tmp.get_x()].getPath()));
             jLabel_left.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() - 1].getPath()));
             jLabel_right.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() + 1].getPath()));
             jLabel_top.setIcon(new ImageIcon(_array[_tmp.get_y() - 1][_tmp.get_x()].getPath()));
+
             _realty_bomer.set_bom_number(_realty_bomer.get_bom_number() - 1);
             System.out.println("done");
         } catch (InterruptedException e) {
