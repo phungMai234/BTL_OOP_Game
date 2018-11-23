@@ -1,15 +1,18 @@
 package  gui;
 
 
-import characters.Entity;
-
+import characters.*;
+import gui.initGame;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListenEvent implements KeyListener
 {
+
     public void keyTyped(KeyEvent e) {
 
     }
@@ -19,6 +22,6 @@ public class ListenEvent implements KeyListener
     }
 
     public void keyReleased(KeyEvent e) {
-        System.out.println("3");
+
     }
 }

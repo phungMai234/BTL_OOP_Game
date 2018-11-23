@@ -8,26 +8,6 @@ public class BombExplode extends Thread {
     private Bomer _tmp;
     private Bomer _realty_bomer;
 
-    public Entity get_tmp() {
-        return _tmp;
-    }
-
-    public void set_tmp(Bomer _tmp) {
-        this._tmp = _tmp;
-    }
-
-    public JPanel getjPanel() {
-        return jPanel;
-    }
-
-    public void setjPanel(JPanel jPanel) {
-        this.jPanel = jPanel;
-    }
-
-    public BombExplode() {
-
-    }
-
     public BombExplode(JPanel jPanel, Bomer _tmp, Entity _array[][]) {
         this._realty_bomer = _tmp;
         this.jPanel = jPanel;
@@ -38,7 +18,7 @@ public class BombExplode extends Thread {
     @Override
     public void run() {
         try {
-            _array[_tmp.get_y()][_tmp.get_x()] = new Bomb(_tmp.get_y(), _tmp.get_x());
+
             JLabel jLabel_center = new JLabel();
             JLabel jLabel_top = new JLabel();
             JLabel jLabel_down = new JLabel();
@@ -62,54 +42,62 @@ public class BombExplode extends Thread {
             jPanel.add(jLabel_right, 0);
 
             Thread.sleep(2000);
-
-
-            System.out.println(_tmp.get_y() + " " + _tmp.get_x());
-
-            System.out.println(_array[_tmp.get_y() - 1][_tmp.get_x()].isCanDelete());
             if (_array[_tmp.get_y() - 1][_tmp.get_x()].isCanDelete()) {
-                _array[_tmp.get_y() - 1][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y() - 1);// hoi
-                System.out.println("top");
+                Tile tile = new Tile(_tmp.get_y() - 1, _tmp.get_x() );
+                if(_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Brick && ((Brick) _array[_tmp.get_y() - 1][_tmp.get_x()]).isHasItem()){
+                    tile.setHasItem(true);
+                    tile.setPath(((Brick) _array[_tmp.get_y() - 1][_tmp.get_x()]).getPathItem());
+                    tile.setTypeItem(((Brick) _array[_tmp.get_y() - 1][_tmp.get_x()]).getTypeItem());
+                }
+                _array[_tmp.get_y() - 1][_tmp.get_x()] = tile;
                 jLabel_top.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_top_last2.png"));
-
             }
-
-            System.out.println(_array[_tmp.get_y() + 1][_tmp.get_x()].isCanDelete());
             if (_array[_tmp.get_y() + 1][_tmp.get_x()].isCanDelete()) {
-                _array[_tmp.get_y() + 1][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y() + 1);
-                System.out.println("down");
+                Tile tile = new Tile(_tmp.get_y() + 1, _tmp.get_x() );
+                if(_array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Brick && ((Brick) _array[_tmp.get_y() + 1][_tmp.get_x()]).isHasItem()){
+                    tile.setHasItem(true);
+                    tile.setPath(((Brick) _array[_tmp.get_y() + 1][_tmp.get_x()]).getPathItem());
+                    tile.setTypeItem(((Brick) _array[_tmp.get_y() + 1][_tmp.get_x()]).getTypeItem());
+                }
+                _array[_tmp.get_y() + 1][_tmp.get_x()] = tile;
                 jLabel_down.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_vertical_down_last2.png"));
             }
 
-            System.out.println(_array[_tmp.get_y()][_tmp.get_x() - 1].isCanDelete());
             if (_array[_tmp.get_y()][_tmp.get_x() - 1].isCanDelete()) {
-                _array[_tmp.get_y()][_tmp.get_x() - 1] = new Tile(_tmp.get_x() - 1, _tmp.get_y());
-                System.out.println("left");
+                Tile tile = new Tile(_tmp.get_y(), _tmp.get_x() - 1);
+                if(_array[_tmp.get_y()][_tmp.get_x() - 1] instanceof Brick && ((Brick) _array[_tmp.get_y() + 1][_tmp.get_x()]).isHasItem()){
+                    tile.setHasItem(true);
+                    tile.setPath(((Brick) _array[_tmp.get_y() + 1][_tmp.get_x()]).getPathItem());
+                    tile.setTypeItem(((Brick) _array[_tmp.get_y() + 1][_tmp.get_x()]).getTypeItem());
+                }
+                _array[_tmp.get_y() + 1][_tmp.get_x()] = tile;
                 jLabel_left.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_left_last2.png"));
 
             }
-
-            System.out.println(_array[_tmp.get_y()][_tmp.get_x() + 1].isCanDelete());
             if (_array[_tmp.get_y()][_tmp.get_x() + 1].isCanDelete()) {
-                _array[_tmp.get_y()][_tmp.get_x() + 1] = new Tile(_tmp.get_x() + 1, _tmp.get_y());
-                System.out.println("right");
+                _array[_tmp.get_y()][_tmp.get_x() + 1] = new Tile(_tmp.get_y(), _tmp.get_x() + 1);
                 jLabel_right.setIcon(new ImageIcon("../BTL_OOP_Game/image/explosion_horizontal_right_last2.png"));
             }
             jLabel_center.setIcon(new ImageIcon("../BTL_OOP_Game/image/bomb_exploded2.png"));
 
             Thread.sleep(400);
-
+            _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
             jLabel_center.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x()].getPath()));
-            jLabel_down.setIcon(new ImageIcon(_array[_tmp.get_y() + 1][_tmp.get_x()].getPath()));
+
+            if(_array[_tmp.get_y() + 1][_tmp.get_x()] instanceof Tile){
+                if(((Tile) _array[_tmp.get_y() + 1][_tmp.get_x()]).isHasItem()){
+                    jLabel_down.setIcon(new ImageIcon(((Tile)_array[_tmp.get_y() + 1][_tmp.get_x()]).getPathItem()));
+                }
+                else{
+                    jLabel_down.setIcon(new ImageIcon(_array[_tmp.get_y() + 1][_tmp.get_x()].getPath()));
+                }
+            }
             jLabel_left.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() - 1].getPath()));
             jLabel_right.setIcon(new ImageIcon(_array[_tmp.get_y()][_tmp.get_x() + 1].getPath()));
             jLabel_top.setIcon(new ImageIcon(_array[_tmp.get_y() - 1][_tmp.get_x()].getPath()));
-
             _realty_bomer.set_bom_number(_realty_bomer.get_bom_number() - 1);
-            System.out.println("done");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }

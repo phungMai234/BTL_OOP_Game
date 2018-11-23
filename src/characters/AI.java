@@ -6,13 +6,13 @@ import java.util.Random;
 public class AI extends Thread{
     private JPanel jPanel;
     public Entity _array[][];
-    private Balloon _balloon;
+    private Entity _balloon;
     private JLabel jballoon;
 
-    public AI(JPanel jPanel, Balloon _balloon, JLabel jballoon, Entity _array[][])
+    public AI(JPanel jPanel, Entity _balloon, JLabel jballoon, Entity _array[][])
     {
         this.jPanel = jPanel;
-        this._balloon = _balloon;
+        this._balloon = new Balloon(_balloon.get_x(), _balloon.get_y());
         this._array = _array;
         this.jballoon = jballoon;
     }
@@ -52,8 +52,8 @@ public class AI extends Thread{
         int direction = 0;
         Random random = new Random();
         while (true) {
+
             direction = random.nextInt(4) + 1;
-            System.out.println(direction);
             switch (direction)
             {
                 case 1:
@@ -64,8 +64,9 @@ public class AI extends Thread{
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        System.out.println("left");
                     }
-                    System.out.println("left");
+
                     break;
                 case 2:
                     if(checkMoveBalloon(2,_balloon)) {
@@ -75,75 +76,75 @@ public class AI extends Thread{
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        System.out.println("right");
                     }
-                    System.out.println("right");
+
                     break;
                 case 3:
                     if(checkMoveBalloon(3, _balloon)) {
                         moveUp(_balloon);
                         try {
-                            Thread.sleep(700);
+                            Thread.sleep(400);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        System.out.println("up");
                     }
-                    System.out.println("up");
+
                     break;
                 case 4:
                     if(checkMoveBalloon(4, _balloon)) {
                         moveDown(_balloon);
                         try {
-                            Thread.sleep(700);
+                            Thread.sleep(400);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        System.out.println("down");
                     }
-                    System.out.println("down");
+
                     break;
 
             }
-
         }
     }
-    public void moveUp(Balloon _tmp)
+    public void moveUp(Entity _tmp)
     {
-        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
+        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()-1);
+        _array[_tmp.get_y()][_tmp.get_x()] = _tmp;
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
     }
-    public void moveDown(Balloon _tmp)
+    public void moveDown(Entity _tmp)
     {
-        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
+        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_y(_tmp.get_y()+1);
+        _array[_tmp.get_y()][_tmp.get_x()] = _tmp;
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
-
     }
-    public void moveLeft(Balloon _tmp)
+    public void moveLeft(Entity _tmp)
     {
-        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
+        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_x(_tmp.get_x()-1);
+        _array[_tmp.get_y()][_tmp.get_x()] = _tmp;
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
     }
-    public void moveRight(Balloon _tmp)
+    public void moveRight(Entity _tmp)
     {
-        //_array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_x(), _tmp.get_y());
+        _array[_tmp.get_y()][_tmp.get_x()] = new Tile(_tmp.get_y(), _tmp.get_x());
         _tmp.set_x(_tmp.get_x()+1);
+        _array[_tmp.get_y()][_tmp.get_x()] = _tmp;
         jballoon.setIcon(new ImageIcon( _tmp.getPath()));
         jballoon.setBounds(_tmp.get_x()*50, _tmp.get_y()*50, 50, 50);
-        System.out.println(_tmp.get_x()+" " + _tmp.get_y());
         jPanel.add(jballoon, 0);
     }
-    public boolean checkMoveBalloon(int direction, Balloon _tmp){
+    public boolean checkMoveBalloon(int direction, Entity _tmp){
         if(direction == 1 && !(_array[_tmp.get_y()][_tmp.get_x()-1] instanceof Tile)){
             return false;
         }
