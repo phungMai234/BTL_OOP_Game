@@ -84,7 +84,7 @@ public class AI extends Thread{
                     if(checkMoveBalloon(3, _balloon)) {
                         moveUp(_balloon);
                         try {
-                            Thread.sleep(400);
+                            Thread.sleep(700);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -96,7 +96,7 @@ public class AI extends Thread{
                     if(checkMoveBalloon(4, _balloon)) {
                         moveDown(_balloon);
                         try {
-                            Thread.sleep(400);
+                            Thread.sleep(700);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

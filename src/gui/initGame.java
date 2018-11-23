@@ -201,14 +201,14 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
 
             this.addKeyListener(this);
 
-            int i = 0;
-            for(i = 0; i < balloonList.size(); i++)
-            {
-
-                AI ai = new AI(jPanel,balloonList.get(i), jballoonList.get(i),_array);
-                ai.start();
-                System.out.println("done");
-            }
+//            int i = 0;
+//            for(i = 0; i < balloonList.size(); i++)
+//            {
+//
+//                AI ai = new AI(jPanel,balloonList.get(i), jballoonList.get(i),_array);
+//                ai.start();
+//                System.out.println("done");
+//            }
         } catch (IOException e) {
             e.printStackTrace();
         }
