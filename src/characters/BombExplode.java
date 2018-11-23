@@ -1,5 +1,7 @@
 package characters;
 
+import sound.GameSound;
+
 import javax.swing.*;
 
 public class BombExplode extends Thread {
@@ -42,6 +44,7 @@ public class BombExplode extends Thread {
             jPanel.add(jLabel_right, 0);
 
             Thread.sleep(2000);
+            GameSound.getIstance().getAudio(GameSound.BOMB_BANG).play();
             if (_array[_tmp.get_y() - 1][_tmp.get_x()].isCanDelete()) {
                 Tile tile = new Tile(_tmp.get_y() - 1, _tmp.get_x() );
                 if(_array[_tmp.get_y() - 1][_tmp.get_x()] instanceof Brick && ((Brick) _array[_tmp.get_y() - 1][_tmp.get_x()]).isHasItem()){

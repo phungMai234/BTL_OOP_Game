@@ -15,6 +15,7 @@ import java.util.List;
 import characters.Entity;
 import characters.Wall;
 import characters.*;
+import sound.GameSound;
 
 import javax.swing.*;
 
@@ -41,6 +42,7 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
     private JLabel pointsLabel;
     public initGame()
     {
+
         jPanel = initGameGame("../BTL_OOP_Game/level/level1.txt");
 
         BufferedReader br = null;
@@ -107,6 +109,7 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
         if(e.getSource() == itemNewGame)
         {
             // add new  game
+
         }
         if(e.getSource() == itemExit)
         {
@@ -128,6 +131,9 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
         return jLabel;
     }
     public JPanel initGameGame(String path){
+
+        GameSound.getIstance().getAudio(GameSound.PLAYGAME).loop();
+
         JPanel jPanel = new JPanel(null);
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
@@ -242,6 +248,7 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
     {
         BombExplode bombExplode= new BombExplode(jPanel, _tmp, _array);
         bombExplode.start();
+
     }
 
     public void keyTyped(KeyEvent e) {
@@ -280,6 +287,8 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
                     break;
                 }
                 else{
+
+
                     _array[_bomer.get_y()][_bomer.get_x()] = new Bomb(_bomer.get_x(), _bomer.get_y());
                     System.out.println(_bomer.get_y() + " " + _bomer.get_x());
                     if(_array[_bomer.get_y()][_bomer.get_x()] instanceof Bomb){
@@ -287,10 +296,19 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
                     }
                     _bomer.set_bom_number(_bomer.get_bom_number()+1);
                     getBomb(_bomer);
+                    GameSound.getIstance().getAudio(GameSound.BOMB).play();
+
+
 
                     // vi du
                     point++;
                     pointsLabel.setText("Points: " + point);
+
+                    /*vi du */
+                    if(point == 5) {
+                        GameSound.getIstance().getAudio(GameSound.PLAYGAME).stop();
+                        GameSound.getIstance().getAudio(GameSound.LOSE).play();
+                    }
                     break;
                 }
             }
