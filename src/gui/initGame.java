@@ -28,6 +28,8 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
     private int point = 0;
     private JLabel bomer = new JLabel();
     private Bomer _bomer;
+    private JLabel jballoon = new JLabel();
+    private Balloon _balloon;
     private List<Entity> balloonList = new ArrayList<Entity>();
     private List<JLabel> jballoonList = new ArrayList<JLabel>();
     private JMenuBar menuBar = new JMenuBar();
@@ -54,7 +56,6 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
 
         height = Integer.parseInt(infor.split(" ")[0]);
         width = Integer.parseInt(infor.split(" ")[1]);
-        System.out.println(height + " " + width);
 
         itemNewGame.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         itemExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
@@ -134,11 +135,10 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
             String infor = br.readLine();
             height = Integer.parseInt(infor.split(" ")[0]);
             width = Integer.parseInt(infor.split(" ")[1]);
-            System.out.println(height + " " + width);
             for(int i = 0; i < height; i++){
                 String oneLine = br.readLine();
                 char[] arr = oneLine.toCharArray();
-                for(int j=0; j< width; j++){
+                for(int j=0; j< arr.length; j++){
                     if (arr[j] == '#') {
                         Entity _wall = new Wall(j, i);
                         _wall.setCanDelete(false);
@@ -171,38 +171,31 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
                         ((Brick) _array[i][j]).setTypeItem("LIMIT_BOM");
                         jPanel.add(creatLabelEntity(_brick));
                     }
-                    if(arr[j] == '1')
+                    if(arr[j] == '+')
                     {
-                        JLabel jballoon;
-                        Entity _balloon;
-
+                        System.out.println(i+ ":" +j);
                         _balloon = new Balloon(j, i);
                         _balloon.setCanMove(true);
                         _array[i][j] = _balloon;
                         jballoon = creatLabelEntity(_balloon);
-
                         balloonList.add(_balloon);
                         jballoonList.add(jballoon);
-
                         Entity _tile = new Tile(j, i);
-
                         jPanel.add(creatLabelEntity(_tile), 0);
                         jPanel.add(jballoon, 0);
-
                     }
                 }
             }
 
             this.addKeyListener(this);
-
 //            int i = 0;
 //            for(i = 0; i < balloonList.size(); i++)
 //            {
-//
 //                AI ai = new AI(jPanel,balloonList.get(i), jballoonList.get(i),_array);
 //                ai.start();
-//                System.out.println("done");
 //            }
+            AI ai = new AI(jPanel,_balloon, jballoon,_array);
+            ai.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -281,7 +274,6 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
                 }
                 else{
                     _array[_bomer.get_y()][_bomer.get_x()] = new Bomb(_bomer.get_x(), _bomer.get_y());
-                    System.out.println(_bomer.get_y() + " " + _bomer.get_x());
                     if(_array[_bomer.get_y()][_bomer.get_x()] instanceof Bomb){
                         System.out.println("ok");
                     }
@@ -302,9 +294,6 @@ public class initGame extends JFrame implements KeyListener, ActionListener {
     }
 
     private boolean checkMove(char tmp, Entity _tmp){
-        if(_array[_tmp.get_y()][_tmp.get_x()-1] instanceof Bomb){
-            System.out.println("ok");
-        }
         if(tmp == 'a' && !(_array[_tmp.get_y()][_tmp.get_x()-1] instanceof Tile)){
             return false;
         }
