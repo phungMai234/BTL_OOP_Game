@@ -1,66 +1,93 @@
 package sound;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.util.HashMap;
 
-/* note: muon doi file nhac, chọn trình chuyen doi online sang duoi wav thì mơi chay dc, k doi tay*/
+public class GameSound extends Thread {
 
-public class GameSound {
-    public static GameSound instance;
+    private String filename;
+    private boolean loop = false;
+    private Position curPosition;
 
-    public static final String PLAYGAME = "nhacnen (online-audio-converter.com).wav";
-    public static final String BOMB = "newbomb.wav";
-//    public static final String BOMBER_DIE = "bomber_die.wav";
-//    public static final String MONSTER_DIE = "monster_die.wav";
-    public static final String BOMB_BANG = "bomb_bang.wav";
-//    public static final String ITEM = "item.wav";
-//    public static final String WIN = "win.wav";
-    public static final String LOSE = "gameover (online-audio-converter.com).wav";
+    private final int EXTERNAL_BUFFER_SIZE = 524288;
 
-    private HashMap<String, AudioClip> audioMap;
+    enum Position {
+        LEFT, RIGHT, NORMAL
+    };
 
-    public GameSound() {
-        audioMap = new HashMap<>();		//tao hashmap audioMap
-        loadAllAudio();
+    public GameSound(String wavfile, boolean _loop) {
+        filename = wavfile;
+        curPosition = Position.NORMAL;
+        loop = _loop;
     }
 
-    public static GameSound getIstance() {
-        if (instance == null) {
-            instance = new GameSound();
+    public void run() {
+        boolean check = true;
+        while(check)
+        {
+            File soundFile = new File(filename);
+            if (!soundFile.exists()) {
+                System.err.println("Wave file not found: " + filename);
+                return;
+            }
+
+            AudioInputStream audioInputStream = null;
+            try {
+                audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            } catch (UnsupportedAudioFileException e1) {
+                e1.printStackTrace();
+                return;
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                return;
+            }
+
+            AudioFormat format = audioInputStream.getFormat();
+            SourceDataLine auline = null;
+            DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
+
+            try {
+                auline = (SourceDataLine) AudioSystem.getLine(info);
+                auline.open(format);
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+
+            if (auline.isControlSupported(FloatControl.Type.PAN)) {
+                FloatControl pan = (FloatControl) auline
+                        .getControl(FloatControl.Type.PAN);
+                if (curPosition == Position.RIGHT)
+                    pan.setValue(1.0f);
+                else if (curPosition == Position.LEFT)
+                    pan.setValue(-1.0f);
+            }
+
+            auline.start();
+            int nBytesRead = 0;
+            byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+
+            try {
+                while (nBytesRead != -1) {
+                    nBytesRead = audioInputStream.read(abData, 0, abData.length);
+                    if (nBytesRead >= 0)
+                        auline.write(abData, 0, nBytesRead);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            } finally {
+                auline.drain();
+                auline.close();
+            }
+            if(!loop){
+                check = false;
+            }
         }
-
-        return instance;
-    }
-
-    public void loadAllAudio() {
-
-        setAudio(PLAYGAME);
-        setAudio(BOMB);
-//        setAudio(MONSTER_DIE);
-//        setAudio(BOMBER_DIE);
-        setAudio(BOMB_BANG);
-//        setAudio(ITEM);
-//        setAudio(WIN);
-        setAudio(LOSE);
-    }
-
-    public void stop() {
-
-        getAudio(PLAYGAME).stop();
-        getAudio(BOMB).stop();
-        getAudio(BOMB_BANG).stop();
-//        getAudio(WIN).stop();
-        getAudio(LOSE).stop();
-    }
-
-    public void setAudio(String name) {
-        audioMap.put(name, Applet.newAudioClip(GameSound.class.getResource(name)));
-    }
-
-    public AudioClip getAudio(String name) {
-        return audioMap.get(name);
     }
 }
-

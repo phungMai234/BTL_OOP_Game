@@ -4,13 +4,16 @@ public abstract class Entity {
     private int _x, _y;
     private boolean canMove = false;
     private boolean canDelete;
+
     public int get_x() {
         return _x;
     }
+
     public int get_y() {
         return _y;
     }
-    public Entity(int x, int y){
+
+    public Entity(int x, int y) {
         _x = x;
         _y = y;
         canDelete = true;
