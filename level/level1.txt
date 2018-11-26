@@ -17,7 +17,7 @@
 t : brick co item time
 @: brick k cos item ben trong
 #: wall
-+: entity
++: balloon
 *: bomer
 !: brick co item bom
 

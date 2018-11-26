@@ -38,43 +38,47 @@ public class AutoMove extends Thread {
                 case "left":
                     if (checkMoveBalloon("left", _balloon)) {
                         moveLeft(_balloon);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            System.out.println(e);
+                        }
                     }
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+
                     break;
                 case "right":
                     if (checkMoveBalloon("right", _balloon)) {
                         moveRight(_balloon);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            System.out.println(e);
+                        }
                     }
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+
                     break;
                 case "up":
                     if (checkMoveBalloon("up", _balloon)) {
                         moveUp(_balloon);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            System.out.println(e);
+                        }
                     }
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+
                     break;
                 case "down":
                     if (checkMoveBalloon("down", _balloon)) {
 
                         moveDown(_balloon);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            System.out.println(e);
+                        }
                     }
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+
                     break;
             }
         }

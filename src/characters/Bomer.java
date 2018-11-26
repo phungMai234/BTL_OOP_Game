@@ -6,7 +6,7 @@ public class Bomer extends Entity {
     private int _bom_time = 3000;
     private boolean canDelete = true;
     private boolean isLife = true;
-    private String path = "../BTL_OOP_Game/image/bomer.png";
+    private String path = "../BTL_OOP_Game/image/player_down.png";
 
     public Bomer(int x, int y) {
         super(x, y);
